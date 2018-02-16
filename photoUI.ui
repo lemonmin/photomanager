@@ -149,6 +149,15 @@
        <height>241</height>
       </rect>
      </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::MultiSelection</enum>
+     </property>
+     <property name="selectionRectVisible">
+      <bool>true</bool>
+     </property>
     </widget>
    </widget>
   </widget>
@@ -194,6 +203,15 @@
        <width>551</width>
        <height>241</height>
       </rect>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::MultiSelection</enum>
+     </property>
+     <property name="selectionRectVisible">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -247,7 +265,7 @@
   <widget class="QPushButton" name="cmpBtn">
    <property name="geometry">
     <rect>
-     <x>800</x>
+     <x>1010</x>
      <y>20</y>
      <width>112</width>
      <height>34</height>
@@ -260,8 +278,8 @@
   <widget class="QPushButton" name="removeSelecFilesBtn">
    <property name="geometry">
     <rect>
-     <x>921</x>
-     <y>20</y>
+     <x>920</x>
+     <y>120</y>
      <width>201</width>
      <height>34</height>
     </rect>
@@ -270,10 +288,23 @@
     <string>Remove selected files</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="selecAllBtn">
+  <widget class="QPushButton" name="CmpSelecAllBtn">
    <property name="geometry">
     <rect>
-     <x>1010</x>
+     <x>800</x>
+     <y>120</y>
+     <width>112</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select all</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="BaseSelecAllBtn">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
      <y>120</y>
      <width>112</width>
      <height>34</height>
@@ -325,7 +356,7 @@
    <slot>cmpBtnClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1031</x>
+     <x>821</x>
      <y>35</y>
     </hint>
     <hint type="destinationlabel">
@@ -334,10 +365,61 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>CmpSelecAllBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>cmpSelecAllBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1039</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>977</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BaseSelecAllBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>baseSelecAllBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>470</x>
+     <y>139</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>434</x>
+     <y>17</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeSelecFilesBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>removeSelecFilesBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1006</x>
+     <y>29</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>707</x>
+     <y>16</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>baseLoadBtnClicked()</slot>
   <slot>cmpLoadBtnClicked()</slot>
   <slot>cmpBtnClicked()</slot>
+  <slot>cmpSelecAllBtnClicked()</slot>
+  <slot>baseSelecAllBtnClicked()</slot>
+  <slot>removeSelecFilesBtnClicked()</slot>
  </slots>
 </ui>

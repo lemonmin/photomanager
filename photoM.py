@@ -29,23 +29,24 @@ class Form(QtWidgets.QDialog):
         self.setResultTextSignal.emit(NOTIFY_LOAD_SUCCESS)
 
     def cmpBtnClicked(self):
-        # TBD : ListView에 있는 list를 가져와서 비교하는걸로 바꾸기.
-        print("cmpBtnClicked()")
-        sameList = []
+        self.sameListCmp = {}
+        self.sameListBase = {}
         basePath = self.basePath.text().strip()
         cmpPath = self.comparePath.text().strip()
-        baseFileList = os.listdir(basePath)
-        cmpFileList = os.listdir(cmpPath)
-        for bf in baseFileList:
+        # 현재 list에 있는 모든 값을 rowIndex:value dictionary로 가져옴
+        baseFileList = {i:str(self.baseListView.model().item(i).text()) for i in range(self.baseListView.model().rowCount())}
+        cmpFileList = {i:str(self.cmpListView.model().item(i).text()) for i in range(self.cmpListView.model().rowCount())}
+        for bi in baseFileList:
             try:
-                baseImg = Image.open(basePath+'/'+bf)
-                for cf in cmpFileList:
+                baseImg = Image.open(basePath+'/'+baseFileList[bi].strip())
+                for ci in cmpFileList:
                     if basePath != cmpPath:
                         try:
-                            cmpImg = Image.open(cmpPath+'/'+cf)
+                            cmpImg = Image.open(cmpPath+'/'+cmpFileList[ci].strip())
                             if baseImg == cmpImg:
-                                print("same ",basePath+'/'+bf, cmpPath+'/'+cf)
-                                sameList.append(cmpPath+'/'+cf)
+                                print("same ",basePath+'/'+baseFileList[bi].strip(), cmpPath+'/'+cmpFileList[ci].strip())
+                                self.sameListCmp[ci] = cmpPath+'/'+cmpFileList[ci].strip()
+                                self.sameListBase[bi] = basePath+'/'+baseFileList[bi].strip()
                         except Exception as e:
                             #print('*** Caught exception: %s: %s' % (e.__class__, e))
                             continue
@@ -53,8 +54,39 @@ class Form(QtWidgets.QDialog):
                 #print('*** Caught exception: %s: %s' % (e.__class__, e))
                 continue
         self.setResultTextSignal.emit(NOTIFY_COMPARE_SUCCESS)
-        print("Same List : ",sameList)
-        # TBD : sameList에 있는 list들을 cmpList에서 background 색 변경해주기
+        for i in self.sameListCmp.keys():
+            # 같은 파일들 이름은 붉은 글씨로 표기함
+            self.cmpListView.model().setData(self.cmpListView.model().index(i,0), QBrush(Qt.red), QPalette.Base)
+            # 같은 파일들은 선택해줌
+            self.cmpListView.setSelection(self.cmpListView.rectForIndex(self.cmpListView.model().index(i,0)), QItemSelectionModel.Select)
+        for i in self.sameListBase.keys():
+            self.baseListView.model().setData(self.baseListView.model().index(i,0), QBrush(Qt.red), QPalette.Base)
+
+    def cmpSelecAllBtnClicked(self):
+        currentText = self.CmpSelecAllBtn.text().strip()
+        if currentText == SELECT_ALL_BTN_STATE[0]:
+            self.CmpSelecAllBtn.setText(SELECT_ALL_BTN_STATE[1])
+            self.cmpListView.selectAll()
+        else:
+            self.CmpSelecAllBtn.setText(SELECT_ALL_BTN_STATE[0])
+            self.cmpListView.clearSelection()
+
+    def baseSelecAllBtnClicked(self):
+        currentText = self.BaseSelecAllBtn.text().strip()
+        if currentText == SELECT_ALL_BTN_STATE[0]:
+            self.BaseSelecAllBtn.setText(SELECT_ALL_BTN_STATE[1])
+            self.baseListView.selectAll()
+        else:
+            self.BaseSelecAllBtn.setText(SELECT_ALL_BTN_STATE[0])
+            self.baseListView.clearSelection()
+
+    def removeSelecFilesBtnClicked(self):
+        selectedList = self.cmpListView.selectedIndexes()        
+        while len(selectedList) > 0:
+            removeFilePath = self.comparePath.text().strip() + selectedList[0].data().strip()
+            self.cmpListView.model().removeRow(selectedList[0].row())
+            os.remove(removeFilePath)
+            selectedList = self.cmpListView.selectedIndexes()
 
     def setResultText(self, str):
         self.resultText.setText(str)
