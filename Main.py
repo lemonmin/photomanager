@@ -103,7 +103,10 @@ class Form(QtWidgets.QDialog):
     def setResultText(self, str):
         self.resultText.setText(str)
 
-    def baseItemSelected(self):
+    def baseItemSelected(self, idx):
+        self.baseListView.clearSelection()
+        self.baseListView.setCurrentIndex(idx)
+        # selected_idx = self.baseListView.selectedIndexes()[-1]
         # QListView에서는 selectedIndexes()로 현재 선택된 list들을 가져올 수 있다.
         # 그결과 list의 row()로 row 번호, data()로 list 값을 가져올 수 있다.
         imgPath = str(self.basePath.text().strip() + self.baseListView.selectedIndexes()[-1].data().strip()).strip()
@@ -113,7 +116,10 @@ class Form(QtWidgets.QDialog):
         imgLabel = imgLabel.scaledToHeight(self.baseImgView.height())
         self.baseImgView.setPixmap(imgLabel)
 
-    def cmpItemSelected(self):
+    def cmpItemSelected(self, idx):
+        self.cmpListView.clearSelection()
+        self.cmpListView.setCurrentIndex(idx)
+        # selected_idx = self.cmpListView.selectedIndexes()[-1]
         imgPath = str(self.comparePath.text().strip() + self.cmpListView.selectedIndexes()[-1].data().strip()).strip()
         imgLabel = QPixmap(imgPath)
         imgLabel = imgLabel.scaledToHeight(self.cmpImgView.height())
