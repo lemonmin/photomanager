@@ -5,7 +5,7 @@ from PyQt5 import uic, QtWidgets, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from Contants import *
+from contants import *
 
 # Load QT Designer UI Interface
 class Form(QtWidgets.QDialog):
@@ -93,7 +93,7 @@ class Form(QtWidgets.QDialog):
             self.baseListView.clearSelection()
 
     def removeSelecFilesBtnClicked(self):
-        selectedList = self.cmpListView.selectedIndexes()        
+        selectedList = self.cmpListView.selectedIndexes()
         while len(selectedList) > 0:
             removeFilePath = self.comparePath.text().strip() + selectedList[0].data().strip()
             self.cmpListView.model().removeRow(selectedList[0].row())
