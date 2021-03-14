@@ -17,9 +17,13 @@ class Form(QtWidgets.QDialog):
         self.baseListView.doubleClicked.connect(self.baseItemSelected)
         self.cmpListView.doubleClicked.connect(self.cmpItemSelected)
         self.myui.show()
+        # Test
+        self.makeGrid()
 
 
    ############### Slots ##############
+
+   ############### 1st Tab ############
 
 
     def baseLoadBtnClicked(self):
@@ -137,6 +141,17 @@ class Form(QtWidgets.QDialog):
             return model
         return None
 
+   ############### 2nd Tab ############
+    def makeGrid(self):
+       self.testLabel = QLabel("Test")
+       self.testLabel1 = QLabel("Test1")
+       self.testLabel2 = QLabel("Test2")
+       self.gridLayout.addWidget(self.testLabel, 0, 0)
+       self.gridLayout.addWidget(self.testLabel1, 0, 1)
+       self.gridLayout.addWidget(self.testLabel2, 1, 0)
+
+       self.testLabel3 = QLabel("Test3")
+       self.gridLayout_2.addWidget(self.testLabel3, 2,0)
 
    ############### Functions ##############
 

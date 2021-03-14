@@ -348,16 +348,50 @@
     <attribute name="title">
      <string>스마트 폴더 구분</string>
     </attribute>
-    <widget class="QWidget" name="gridLayoutWidget">
+    <widget class="QTabWidget" name="tabWidget_2">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>1091</width>
-       <height>721</height>
+       <x>20</x>
+       <y>20</y>
+       <width>1081</width>
+       <height>751</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="foldersLayout"/>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>비슷한 사진 묶기</string>
+      </attribute>
+      <widget class="QWidget" name="gridLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>1051</width>
+         <height>701</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout"/>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>자동 사진 분리</string>
+      </attribute>
+      <widget class="QWidget" name="gridLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>1051</width>
+         <height>701</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2"/>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
